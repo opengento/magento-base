@@ -1,0 +1,29 @@
+web:
+  image: occitech/magento:php5.4-apache
+  ports:
+    - "80"
+  links:
+    - db
+    - mail
+  volumes:
+    - ".:/var/www"
+
+db:
+  image: mysql
+  ports:
+    - 3306
+  environment:
+    MYSQL_ROOT_PASSWORD: "root"
+    MYSQL_DATABASE: "magento"
+
+phpmyadmin:
+  image: maxexcloo/phpmyadmin
+  ports:
+    - 80
+  links:
+    - db:mariadb
+
+mail:
+  image: chadrien/mailcatcher:0.5.12
+  ports:
+    - 1080
